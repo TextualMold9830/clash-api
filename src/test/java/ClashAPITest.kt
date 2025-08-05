@@ -7,7 +7,7 @@ import java.util.*
 
 const val CLAN_TAG = "UPCU2098"
 const val CONFIG = "tokens.properties"
-const val PLAYER_TAG = "PGYROPR"
+const val PLAYER_TAG = "PGYR0PR"
 
 class ClashAPITest(playerTestMethod: String?) : TestCase(playerTestMethod) {
     private val clashAPI: ClashAPI
@@ -19,7 +19,7 @@ class ClashAPITest(playerTestMethod: String?) : TestCase(playerTestMethod) {
             tokens.load(FileInputStream(CONFIG))
         } catch (ignored: IOException) {
         }
-        clashAPI = ClashAPI("username", "password")
+        clashAPI = ClashAPI(tokens.getProperty("username"), tokens.getProperty("password"))
     }
 
     fun testWarlog() {
