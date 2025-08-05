@@ -18,6 +18,7 @@ data class Player(
     val legendStatistics: PlayerLegendStatistics? = null,
     val troops: List<Troop>,
     val heroes: List<Troop>,
+    val heroEquipment : List<Equipment>,
     val spells: List<Troop>,
     val labels: List<Label>,
     val tag: String,
