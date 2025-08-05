@@ -38,6 +38,9 @@ import java.rmi.UnexpectedException
 class ClashAPI() {
     companion object {
         private var TOKEN_LIST: MutexList<String> = MutexList()
+        fun useProxy(useProxy: Boolean){
+            CoreUtils.USE_PROXY = useProxy;
+        }
     }
 
     private var http: OkHttpClient = OkHttpClient()
@@ -91,7 +94,7 @@ class ClashAPI() {
         val token = getKeyList().cycle()
         return Request.Builder()
             .header("authorization", "Bearer $token")
-            .url(CoreUtils.URL + CoreUtils.API_VERSION + suffix)
+            .url(CoreUtils.URL() + CoreUtils.API_VERSION + suffix)
     }
 
     @Throws(IOException::class, ClashAPIException::class)

@@ -1,6 +1,7 @@
 package com.sahhiill.clashapi.core.Token;
 
 import com.google.gson.Gson;
+import com.sahhiill.clashapi.core.CoreUtils;
 import com.sahhiill.clashapi.core.exception.IncorrectLoginCredentialException;
 
 import java.io.BufferedReader;
@@ -69,8 +70,14 @@ public class KeyHandler {
 
         Arrays.stream(existingKeyModel.getKeys()).forEach(keyObj -> {
             Arrays.stream(keyObj.getIps()).forEach(ips -> {
-                if (ips.equalsIgnoreCase(ip))
-                    validKeys.add(keyObj.getKey());
+                if (!CoreUtils.INSTANCE.getUSE_PROXY() && !ips.contains(ip) ) {
+                    return;
+                }
+                if (CoreUtils.INSTANCE.getUSE_PROXY() && !ips.contains(CoreUtils.PROXY_IP)){
+                    return;
+                }
+                validKeys.add(keyObj.getKey());
+
             });
         });
 

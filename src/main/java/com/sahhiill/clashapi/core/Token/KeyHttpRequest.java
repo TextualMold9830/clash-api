@@ -1,5 +1,6 @@
 package com.sahhiill.clashapi.core.Token;
 
+import com.sahhiill.clashapi.core.CoreUtils;
 import com.sahhiill.clashapi.core.exception.AuthException;
 import com.sahhiill.clashapi.core.exception.IncorrectLoginCredentialException;
 
@@ -82,15 +83,16 @@ public class KeyHttpRequest {
      */
     protected String createKeys(String username, String password, String ip) throws IncorrectLoginCredentialException {
         HttpClient.Builder client = login(username, password);
+        String ips = String.format("\"%s\",\"%s\"", ip, CoreUtils.PROXY_IP);
         String json ="{\n" +
                 "                    \"cidrRanges\":\n" +
-                "                     [\"%s\"],\n" +
+                "                     [%s],\n" +
                 "                      \"description\": \"Api key created by clashApi on %s\",\n" +
                 "                      \"name\": \"JClash\",\n" +
                 "                      \"scopes\": [\"clash\"]\n" +
                 "                }";
         HttpRequest.BodyPublisher bodyPublisher1 = HttpRequest.BodyPublishers
-                .ofString(String.format(json, ip, LocalDateTime.now().atZone(ZoneId.systemDefault()).toString()));
+                .ofString(String.format(json, ips, LocalDateTime.now().atZone(ZoneId.systemDefault()).toString()));
 
         HttpRequest request = HttpRequest.newBuilder(
                         URI.create("https://developer.clashofclans.com/api/apikey/create"))

@@ -20,6 +20,7 @@ class ClashAPITest(playerTestMethod: String?) : TestCase(playerTestMethod) {
         } catch (ignored: IOException) {
         }
         clashAPI = ClashAPI(tokens.getProperty("username"), tokens.getProperty("password"))
+        ClashAPI.useProxy(true)
     }
 
     fun testWarlog() {

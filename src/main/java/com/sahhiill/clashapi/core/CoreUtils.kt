@@ -7,8 +7,11 @@ import okhttp3.Response
 import java.io.IOException
 
 object CoreUtils {
-    const val URL = "https://api.clashofclans.com/"
+    private const val URL = "https://api.clashofclans.com/"
+    private const val PROXY_URL = "https://cocproxy.royaleapi.dev/";
+    const val PROXY_IP = "45.79.218.79"
     const val API_VERSION = "v1"
+    var USE_PROXY: Boolean = false;
     val json = Json {
         ignoreUnknownKeys = true
         isLenient = true
@@ -48,5 +51,11 @@ object CoreUtils {
 
     private fun checkTagWithRegex(tag: String ): Boolean {
         return tag.toUpperCase().matches("^#[PYLQGRJCUV0289]+$".toRegex())
+    }
+    fun URL(): String {
+        if (USE_PROXY){
+            return PROXY_URL
+        }
+        return URL;
     }
 }
