@@ -3,6 +3,9 @@ import com.sahhiill.clashapi.core.ClashAPI
 import java.io.FileInputStream
 import java.io.IOException
 import com.sahhiill.clashapi.core.exception.NotFoundException
+import com.sahhiill.clashapi.models.player.ExportedData
+import java.nio.file.Files
+import java.nio.file.Path
 import java.util.*
 
 const val CLAN_TAG = "UPCU2098"
@@ -135,5 +138,14 @@ class ClashAPITest(playerTestMethod: String?) : TestCase(playerTestMethod) {
             return
         }
         fail()
+    }
+
+    fun testExportedData(){
+        val path = Path.of("exported.json")
+        if (Files.exists(path)) {
+            val data = ExportedData.fromJson(Files.readString(path))
+            println(data)
+
+        }
     }
 }

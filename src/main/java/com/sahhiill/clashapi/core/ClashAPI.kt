@@ -479,5 +479,4 @@ class ClashAPI() {
         val res = get("/clans/$tag/capitalraidseasons")
         return deserialize<ClanCapitalList>(res).items
     }
-
 }
